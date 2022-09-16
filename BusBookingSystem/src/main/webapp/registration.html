@@ -1,0 +1,272 @@
+<html>
+<style>
+
+td,label{
+		color:green;
+		font-size:30px;
+	}
+	span{
+		color:red;
+		font-size:20px;
+	}
+	input[type="text"],input[type="number"],input[type="password"]{
+		padding:10px;
+		width:300px;
+	}
+	input[type="submit"]{
+		padding:10px;
+		background: #59403e;
+		color:white;
+		font-size:30px;
+	}
+	table{
+		background: #033;
+	}
+
+</style>
+<body>
+<script type="text/javascript">  
+function validate(){  
+	var name=document.f1.uname.value;  
+	var passwordlength=document.f1.upassword.value.length;  
+	var email=document.f1.uemail.value;
+	
+	var age=document.f1.uage.value;
+	
+	var gender=document.f1.ugender.value;
+	
+	var mobile=document.f1.umobile.value;
+	var mobileLen=document.f1.umobile.value.length;
+	
+	var dob=document.f1.udob.value;
+	
+	var status=false;
+	
+	// username vaidations 
+	if(name==""){  
+		document.getElementById("namelocation").innerHTML=  
+			"* Please enter your name";  
+		status=false;
+	}
+	else{  
+		var regName = /^[a-zA-Z]+$/;
+		if(!regName.test(name)){
+			document.getElementById("namelocation").innerHTML="Enter Only alphabetics ";
+			status=false;
+		}
+		else{
+			document.getElementById("namelocation").innerHTML="";  
+			status=true;
+		}
+		
+	}  
+	
+	// email validation 
+	if(email==""){  
+		document.getElementById("emaillocation").innerHTML=  
+		" * please enter email";  
+		status=false; 
+	}
+	else{  
+		var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		
+		if(!validRegex.test(email)){
+			
+			document.getElementById("emaillocation").innerHTML=  
+				"Enter valid email Id  ";  
+				status=false; 
+		}
+		else
+			{
+			document.getElementById("emaillocation").innerHTML=  
+				"";  
+				status=true; 
+			}
+		
+		
+	} 
+	
+	// age 
+	if(age==""){  
+		document.getElementById("agelocation").innerHTML=  
+		"*  please enter age";  
+		
+		status=false;
+	}
+	else{  
+		
+			if(age>14 && age<81){
+				document.getElementById("agelocation").innerHTML=""; 
+				status=true;
+			}
+			else
+				{
+				document.getElementById("agelocation").innerHTML="age must be 15 to 80 only "; 
+				status=false;
+				}
+	}  
+	
+	
+	// gender 
+	if(gender==""){  
+		document.getElementById("genderlocation").innerHTML=  
+		"*  please select your gender ";  
+		status=false;
+		
+	}
+	else{  
+		
+			document.getElementById("genderlocation").innerHTML=""; 
+			status=true;
+			
+	
+	}  
+	
+	// mobile 
+	if(mobile==""){  
+		document.getElementById("mobilelocation").innerHTML=  
+		" * please enter mobile number";  
+		status=false; 
+	}
+	else{ 
+		var pattern = /^[6-9][0-9]{0,9}$/;
+		if(!pattern.test(mobile)){
+			document.getElementById("mobilelocation").innerHTML=  
+				" * please enter 10 digits that should start 6-9 only ";  
+				status=false; 
+		}
+		else
+		{
+			document.getElementById("mobilelocation").innerHTML=""; 
+			status=true;
+		}
+	
+	}  
+	
+	// dob
+	
+	if(dob==""){  
+		document.getElementById("doblocation").innerHTML=  
+		" * please enter your Date Of Birth";  
+		status=false; 
+	}
+	else{  
+		
+	        var regex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
+	 
+	        //Check whether valid dd/MM/yyyy Date Format.
+	        if (regex.test(dob)) {
+	            var parts = dob.split("/");
+	            var dtDOB = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+	            var dtCurrent = new Date();
+	           
+	            if (dtCurrent.getFullYear() - dtDOB.getFullYear() < 15) {
+	               
+	            	 document.getElementById("doblocation").innerHTML="Eligibility > 15 years ";
+	            	status=false;
+	            }
+	            else{
+	            	
+	            	document.getElementById("doblocation").innerHTML="";
+	            	status=true;
+	            }
+	        }
+	        else
+	        {
+	        	document.getElementById("doblocation").innerHTML="Enter date in dd/MM/yyyy format only";
+	        	status=false;
+	       	}
+	 
+	 }
+		
+	 
+	
+	// password validation
+	if(passwordlength<8){  
+		document.getElementById("passwordlocation").innerHTML= 	" * Password range from 8 to 20"; 
+	  
+		status=false;
+	}
+	else{  
+		
+		 if (password.match(/[a-z]/g) && password.match(/[A-Z]/g) && password.match(/[0-9]/g) && password.match( /[^a-zA-Z\d]/g) && password.length >= 8 )
+        {
+			 document.getElementById("passwordlocation").innerHTML="";  
+				status=true;
+		 }
+		 else
+			 {
+			 document.getElementById("passwordlocation").innerHTML="password must contain atleast one (uppercase,lowercase,special symbol,number) range from 8 to 20 ";  
+				
+			 	status=false;
+			 }
+	
+	}  
+	
+	
+  	return status;
+	  
+}  
+</script>  
+
+
+<h1 align="center" style="color:blue">Welcome To Bank Application </h1>
+		<h2 align="center" style="color:blue">Registration Form </h2>
+<form name="f1"  method="post" onsubmit="return validate()">  
+	<table align="center">
+	
+	
+		<tr><td>Name:</td><td><input type="text" name="uname"/>  </td>
+			<td><span id="namelocation" style="color:red;"></span></td>
+		</tr>
+		
+		<tr><td>Email:</td><td><input type="text" name="uemail"/> </td> 
+			<td><span id="emaillocation" style="color:red"></span></td>
+		</tr>
+		
+		<tr>
+					<td> <label>Gender </label>
+					<td> <input type="radio" name="ugender" value="Male"> <label>Male</label> </td>
+					<td> <input type="radio" name="ugender" value="FeMale"> <label>FeMale</label> </td>
+					<td> <span id="genderlocation"></span> </td>
+		</tr>
+		
+		<tr>
+					<td> <label>Mobile </label>
+					<td> <input type="text" name="umobile" > </td>
+					<td> <span id="mobilelocation" style="color:red"></span> </td>
+		</tr>
+				
+		
+		<tr>
+				<td> <label>Date Of Birth </label>
+				<td> <input type="text" name="dob" id="udob" placeholder="dd/MM/yyyy">  </td>
+				<td>	 <span id="doblocation" style="color:red"></span> </td>
+		</tr>
+				
+		 
+		<tr><td>Password:</td><td><input type="password" name="upassword"/>  </td>
+			<td><span id="passwordlocation" style="color:red"></span></td>
+		</tr>
+		
+		
+		
+		<tr><td><h3 style="color:#7d1934">Wallet Details </h3> </td>
+			
+		</tr>
+		
+		<tr><td>Balance</td><td><input type="number" name="ubalance" step="any"/>  </td>
+			<td><span id="balancelocation" style="color:red"></span></td>
+		</tr>
+		
+		
+		
+		<tr><td colspan="2"><input type="submit" value="register"/>  </td>
+		
+		</tr>
+	</table>
+	
+	
+</form>  
+</body>
+</html>
